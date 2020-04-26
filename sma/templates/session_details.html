@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+{% block body_content %}
+     <style>
+        body {
+            background-color: beige;
+        }
+    </style>
+    <div class="text-center">
+    <h1>Session Information</h1>
+    <div>
+        <table  class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr class="bg-info">
+                    <th>Student First Name</th>
+                    <th >Record Attendance</th>
+                    <th >Remarks</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                    <tr>
+                        <td>{{ student.student_first_name }} </td>
+
+
+{#                         {% for att in attendance %}#}
+{##}
+{#                             {% if att.attendance_student_id_id == student.id %}#}
+{##}
+{#                                 <td>{{  att.attendance_status }} </td>#}
+{##}
+{#                             {%  else %}#}
+                                 <td><input id="id-1" type="radio" name="attendancevalue" value="present">Present <input type="radio" name="attendancevalue" value="absent">Absent  <input type="radio" name="attendancevalue" value="late">late
+
+                                     <a id="button-1" hidden href="{% url 'submitAttendance'  student.id session.pk %}">Submit</a> </td>
+
+
+{#                         {% endif %}#}
+{##}
+{##}
+{#                             {% endfor %}#}
+
+
+
+
+
+
+
+
+                        <td><a href="{% url 'reviewform' session.pk student.pk  %}"> Remarks</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            <p><a href="{% url 'class_email' grade=grade.pk %}" class="btn btn-primary">Email Class</a></p>
+        </table>
+
+
+
+    </div>
+</div>
+
+  <script>
+$( "input" ).on( "click", function() {
+  $( "#log" ).html( $( "input:checked" ).val() + " is checked!" );
+  $("#button-1").removeAttr("hidden")
+});
+</script>
+
+{% endblock body_content %}
